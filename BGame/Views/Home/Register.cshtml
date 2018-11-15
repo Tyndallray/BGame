@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+@model BGame.Models.UserModels.User
+<form asp-action="Register" method="post">
+    <label asp-for="UserName">Name: </label>
+    <input asp-for="UserName" />
+    <br />
+    <label asp-for="Email">E-Mail: </label>
+    <input asp-for="Email" />
+    <br />
+    <label asp-for="Password">Password: </label>
+    <input asp-for="Password" />
+    <br />
+    <label asp-for="ProfileDescription">Profile Info: </label>
+    <textarea asp-for="ProfileDescription" cols="50" rows="7"></textarea>
+    <input type ="submit" value="Register" />
+
+</form>
