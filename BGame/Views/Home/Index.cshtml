@@ -1,11 +1,45 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<div class="slideshow-container">
+    <div class="mySlides fade">
+        <img src="~/images/Catan.jpg" style="width:720px;height:340px; border-radius:8px">
+    </div>
 
-<h2>DEVESH IS GAY</h2>
-<h2>G - great</h2>
-<h2>A - awesome</h2>
-<h2>Y - yougurt</h2>
+    <div class="mySlides fade">
+        <img src="~/images/Dixit.jpg" style="width:720px;height:340px; border-radius:8px">
+    </div>
+    <div class="mySlides fade">
+        <img src="~/images/Expedition.jpg" style="width:720px;height:340px; border-radius:8px">
+    </div>
+    <div class="mySlides fade">
+        <img src="~/images/Monopoly.jpeg" style="width:720px;height:340px; border-radius:8px">
+    </div>
+    <div class="mySlides fade">
+        <img src="~/images/UNO.jpg" style="width:720px;height:340px; border-radius:8px">
+    </div>
+</div>
+<script>
+    slideIndex = 1;
+    setInterval(changeSlide, 3500);
+    function changeSlide() {
+        showSlides(slideIndex);
+        slideIndex++;
+        if (slideIndex > 5) {
+            slideIndex = 1;
+        }
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        if (n > slides.length) { slideIndex = 1;}
+        if (n < 1) { slideIndex = slides.length;}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+
+    }
+</script>
