@@ -1,7 +1,52 @@
-﻿
+﻿@model BGame.Models.GameItem
+
 @{
-    ViewData["Title"] = "SellPage";
+    ViewData["Title"] = "Create";
 }
 
-<h2>SellPage</h2>
+
+<hr />
+<center>
+    <div style="margin-top: 200px;">
+
+        <center>
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <br />
+                        <center><h3>Add your game!</h3></center>
+                        <table>
+                            @*<tr><td>Game image: </td><td><input type="file"></td></tr>*@
+                            <tr>
+                                <td><label asp-for="Name">Name: </label> </td>
+                                <td>
+                                    <input asp-for="Name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label asp-for="Description">Description: </label> </td>
+                                <td>
+                                    <input asp-for="Description" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label asp-for="Price">Price: </label> </td>
+                                <td>
+                                    <input asp-for="Price" />
+                                </td>
+                            </tr>
+                            <tr><td><br /></td></tr>
+                            <tr><td><input type="submit" value="Save"></td><td><a asp-action="Index"><button type="button" value="Back">Simon, go back</button></a></td></tr>
+                        </table>
+                        <br />
+
+                    </form>
+                </div>
+            </div>
+
+
+        </center>
+    </div>
+</center>
+
 
