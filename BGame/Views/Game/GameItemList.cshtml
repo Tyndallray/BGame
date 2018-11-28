@@ -8,7 +8,7 @@
     {
         <div class="content">
             <form>
-                <img src="~/images/@obj.Image" />
+                <img src="@Url.Content(@obj.Image)" />
                 <p><b>Game Name: </b>@obj.Name</p>
                 <p><b>Game Price: </b>@obj.Price</p>
                 <p><b>Stock Quantity: </b>@obj.Quantity</p>
@@ -18,7 +18,10 @@
                 <p>@obj.Description</p>
                 <input type="hidden" name="Id" value="@obj.GameItemId" />
                 <input type="submit" asp-action="GameDetail" value="View Game" class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
+                
+
             </form>
+           
         </div>
     }
 

@@ -26,6 +26,14 @@ namespace BGame
             services.AddMvc();
             services.AddTransient<IGameItem, EFGameItemRepository>();
             services.AddTransient<IUserInterface, EFUserRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+          
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,12 +42,17 @@ namespace BGame
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseStatusCodePages();
+            app.UseStaticFiles();
+            app.UseSession();
+
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(name: null, template: "{ controller = Admin}/{ action = Index}/{ id ?}",
                    defaults: new { controller = "Admin", action = "Index" });
+                routes.MapRoute(name: null, template: "{ controller = Cart}/{ action = Index}/{ id ?}",
+                   defaults: new { controller = "Cart", action = "Index" });
             });
             SeedData.EnsurePopulated(app);
         }

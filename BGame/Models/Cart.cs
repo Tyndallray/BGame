@@ -15,7 +15,7 @@ namespace BGame.Models
 
             if (tOrderItem == null)
             {
-                orderCollection.Add(new OrderItem { GameItem = pGameItem, Quantity = pQuantity });
+                orderCollection.Add(new OrderItem { GameItem = pGameItem, Quantity = pQuantity,date = System.DateTime.Now });
             }
             else
             {
@@ -23,10 +23,10 @@ namespace BGame.Models
             }
         }
         public virtual void RemoveOrderItem(GameItem pGameItem) => orderCollection.RemoveAll(l => l.GameItem.GameItemId == pGameItem.GameItemId);
-
-        public virtual float ComputeTotalValue() => orderCollection.Sum(e => e.GameItem.Price * e.Quantity);
-
         public virtual void Clear() => orderCollection.Clear();
+        //used for calculate amount of purchase
+        public virtual float CalcalteAmount() => orderCollection.Sum(e => e.GameItem.Price * e.Quantity);
+
         public virtual IEnumerable<OrderItem> Orders => orderCollection;
 
     }

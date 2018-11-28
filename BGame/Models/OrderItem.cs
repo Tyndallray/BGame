@@ -12,7 +12,7 @@ namespace BGame.Models
         [Key]
         public int OrderItemID { set; get; }
         public GameItem GameItem {  set; get; }
-        public String date { set; get; }
+        public DateTime date { set; get; }
         public int Quantity {  set; get; }
     }
 }

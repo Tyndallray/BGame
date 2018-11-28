@@ -15,10 +15,12 @@ namespace BGame.Models
         public ICollection<OrderItem> OrderItemList { get; set; }
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Please enter the first address line")]
+        [Required(ErrorMessage = "Please enter address")]
         public string Line1 { get; set; }
+        public DateTime date { get; set; }
         public string Line2 { get; set; }
         [Required(ErrorMessage = "Please enter a city name")]
         public string City { get; set; }
+        public bool isCompleted { get; set; }
     }
 }

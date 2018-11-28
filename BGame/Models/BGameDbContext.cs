@@ -15,6 +15,7 @@ namespace BGame.Models
         public BGameDbContext(DbContextOptions<BGameDbContext> options) : base(options) { }
 
         public DbSet<GameItem> GameItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<User> Users { get; set; }
     }
     public class ApplicationDbContextFactory

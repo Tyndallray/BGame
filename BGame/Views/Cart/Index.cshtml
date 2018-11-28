@@ -1,0 +1,41 @@
+﻿@model Cart
+<h2>Your cart</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                @*<td class="text-left"> @line.</td>*@
+                <td class="text-left">@item.GameItem.Name</td>
+                <td class="text-center">@item.Quantity</td>
+                <td class="text-right">@item.GameItem.Price.ToString("c")</td>
+                <td class="text-right">@((item.Quantity * item.GameItem.Price).ToString("c"))</td>
+                <td>
+                    <form asp-action="RemoveFromCart" asp-controller="Cart" asp-route-pID="@item.GameItem.GameItemId" method="post">
+                        <input type="hidden"  value="@item.GameItem.GameItemId" />
+                        @*<input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />*@
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">@Model.CalcalteAmount().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+   @* <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
+    <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">Checkout</a>
+</div>

@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="~/css/Style.css" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
     <title>Home Page</title>
 </head>
 <body>
@@ -19,7 +20,8 @@
                 <td class="navbutton"><a asp-controller="Home" asp-action="Login">Sign In</a></td>
                 <td class="navbutton"><a asp-controller="Home" asp-action="Register">Sign Up</a></td>
                 <td class="navbutton"><a asp-controller="Admin" asp-action="Index">Admin</a></td>
-
+                <td class="navbutton"><a asp-controller="Cart" asp-action="Index">Cart</a></td>
+                <td class="navbutton"><a asp-controller="Order" asp-action="List">Orders</a></td>
             </tr>
         </table>
     </div>
