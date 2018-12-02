@@ -21,6 +21,11 @@ namespace BGame.Controllers
             return View();
         }
 
+        public IActionResult ChatPage()
+        {
+            return View();
+        }
+
         public IActionResult BuyPage()
         {
             return View();
