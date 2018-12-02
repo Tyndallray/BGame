@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "GameItemList";
 }
-<div class="container">
     <h2>GameItemList</h2>
     @foreach (GameItem obj in Model)
     {
@@ -18,13 +17,8 @@
                 <p>@obj.Description</p>
                 <input type="hidden" name="Id" value="@obj.GameItemId" />
                 <input type="submit" asp-action="GameDetail" value="View Game" class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
-                
-
             </form>
-           
         </div>
     }
-
-</div>
 
 

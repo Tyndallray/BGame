@@ -19,20 +19,20 @@
                 <td>@o.City</td>
                 <th>Games</th>
                 <th>Quantity</th>
-                <td>
+                @*<td>
                     <form asp-action="MarkShipped" method="post">
                         <input type="hidden" name="orderId" value="@o.OrderID" />
                         <button type="submit" class="btn btn-sm btn-danger">Ship</button>
                     </form>
-                </td>
+                </td>*@
             </tr>
             @foreach (OrderItem item in o.OrderItemList)
             {
                 <tr>
                     <td colspan="2"></td>
+                    <td></td>
                     <td>@item.GameItem.Name</td>
                     <td>@item.Quantity</td>
-                    <td></td>
                 </tr>
             }
         }
