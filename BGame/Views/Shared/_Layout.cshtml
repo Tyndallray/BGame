@@ -4,6 +4,16 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="~/css/Style.css" />
+    <script type="text/javascript">
+        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+        (function (d, m) {
+            var kommunicateSettings = { "appId": "1a92adc83df06d16574f21fd5c2f090cf", "conversationTitle": "Пальчевский Александр" };
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://api.kommunicate.io/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+    </script>
     <title>Home Page</title>
 </head>
 <body>
