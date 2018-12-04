@@ -16,7 +16,7 @@ namespace BGame.Models
 
         public DbSet<GameItem> GameItems { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<User> Users { get; set; }
+      //  public DbSet<User> Users { get; set; }
     }
     public class ApplicationDbContextFactory
           : IDesignTimeDbContextFactory<BGameDbContext>

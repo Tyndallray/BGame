@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GamerZone.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdminController : Controller
     {
         private IGameItem gItemRepository;

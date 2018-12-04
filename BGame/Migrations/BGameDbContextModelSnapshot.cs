@@ -95,25 +95,6 @@ namespace BGame.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("BGame.Models.UserModels.User", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("ProfileDescription");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("BGame.Models.OrderItem", b =>
                 {
                     b.HasOne("BGame.Models.GameItem", "GameItem")
