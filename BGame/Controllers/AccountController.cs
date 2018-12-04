@@ -59,9 +59,43 @@ namespace BGame.Controllers
             return View();
         }
         // doesnt work
-        public RedirectResult RegisterAndLogin(string returnUrl="/") {
+        //public RedirectResult RegisterAndLogin(string returnUrl="/") {
             
-            return Redirect(returnUrl);
+        //    return Redirect(returnUrl);
+        //}
+        [HttpPost]
+        public async Task<IActionResult> RegisterAndLogin(User registerUser)
+        {
+            registerUser.ReturnUrl = registerUser.ReturnUrl ?? Url.Content("~/");
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = registerUser.UserName, Email = registerUser.Email };
+                var result = await userManager.CreateAsync(user, registerUser.Password);
+                if (result.Succeeded)
+                {
+
+                    //this part is mainly for preparing email varifying callback 
+                    //_logger.LogInformation("User created a new account with password.");
+                    //var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Page(
+                    //    "/Admin/Index",
+                    //    pageHandler: null,
+                    //    values: new { userId = user.Id, code = code },
+                    //    protocol: Request.Scheme);
+                    //await .SendEmailAsync(registerUser.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(registerUser?.ReturnUrl ?? "/Admin/Index");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View();
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Register";
     Layout = "_LogLayout";
 }
+@model BGame.Models.UserModels.User
 
-<div class="login-dialog">
+<div class="login-dialog" asp-validation-summary="All">
 
-    @model BGame.Models.UserModels.User
-    <form asp-action="Register" method="post">
+
+    <form asp-action="RegisterAndLogin" method="post">
         <h2>Register</h2>
         <br />
         <label asp-for="UserName">Name: </label>
@@ -21,7 +21,7 @@
         <p style="font-size:10px">
             Passwords must consist of at least 6 characters.
         </p>
-        
-        <button type="submit" class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black"><b>Register</b></button>
+
+        <button type="submit"><b>Register</b></button>
     </form>
 </div>
