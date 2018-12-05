@@ -7,7 +7,7 @@
 <div class="login-dialog" asp-validation-summary="All">
 
 
-    <form asp-action="RegisterAndLogin" method="post">
+    <form asp-action="RegisterAndLogin" asp-controller="Account" method="post">
         <h2>Register</h2>
         <br />
         <label asp-for="UserName">Name: </label>

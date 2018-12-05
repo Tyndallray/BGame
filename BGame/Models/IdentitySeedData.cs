@@ -19,8 +19,14 @@ namespace BGame.Models
             IdentityUser user = await userManager.FindByIdAsync(adminUser);
             if (user == null)
             {
-                user = new IdentityUser("Admin");
+                user = new IdentityUser(adminUser);
                 await userManager.CreateAsync(user, adminPassword);
+            }
+            IdentityUser general = await userManager.FindByIdAsync("General");
+            if (general == null)
+            {
+                general = new IdentityUser("Admin");
+                await userManager.CreateAsync(general, "General123$");
             }
         }
     }

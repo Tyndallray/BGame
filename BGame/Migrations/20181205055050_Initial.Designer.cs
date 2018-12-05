@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BGame.Migrations
 {
     [DbContext(typeof(BGameDbContext))]
-    [Migration("20181204185504_Initial")]
+    [Migration("20181205055050_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,33 @@ namespace BGame.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BGame.Models.Comment", b =>
+                {
+                    b.Property<int>("commentID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GameID");
+
+                    b.Property<int?>("GameItemId");
+
+                    b.Property<int>("UserID");
+
+                    b.Property<string>("commentContent");
+
+                    b.Property<string>("commenterName");
+
+                    b.Property<string>("commenterProfile");
+
+                    b.Property<DateTime>("date");
+
+                    b.HasKey("commentID");
+
+                    b.HasIndex("GameItemId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("BGame.Models.GameItem", b =>
                 {
@@ -65,6 +92,8 @@ namespace BGame.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int>("UserID");
+
                     b.Property<DateTime>("date");
 
                     b.Property<bool>("isCompleted");
@@ -82,7 +111,7 @@ namespace BGame.Migrations
 
                     b.Property<int?>("GameItemId");
 
-                    b.Property<int?>("OrderID");
+                    b.Property<int>("OrderID");
 
                     b.Property<int>("Quantity");
 
@@ -97,6 +126,13 @@ namespace BGame.Migrations
                     b.ToTable("OrderItem");
                 });
 
+            modelBuilder.Entity("BGame.Models.Comment", b =>
+                {
+                    b.HasOne("BGame.Models.GameItem")
+                        .WithMany("Comments")
+                        .HasForeignKey("GameItemId");
+                });
+
             modelBuilder.Entity("BGame.Models.OrderItem", b =>
                 {
                     b.HasOne("BGame.Models.GameItem", "GameItem")
@@ -105,7 +141,8 @@ namespace BGame.Migrations
 
                     b.HasOne("BGame.Models.Order")
                         .WithMany("OrderItemList")
-                        .HasForeignKey("OrderID");
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

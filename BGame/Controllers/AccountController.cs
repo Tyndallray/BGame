@@ -95,8 +95,14 @@ namespace BGame.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View();
+            ModelState.AddModelError("", "Invalid input");
+            return View("Register");
         }
+
+        //public async User getCurUser(int pID) {
+        //  IdentityUser tUser =  await  userManager.FindByIdAsync(pID.ToString());
+        //    return 
+        //}
     }
 }
 

@@ -1,0 +1,8 @@
+﻿
+@model Comment
+<div class="comment">
+    <img src="@Url.Content(Model.commenterProfile)" />
+    <span>@Model.commenterName </span>
+    <p>@Model.commentContent</p>
+    <span>@Model.date</span>
+</div>

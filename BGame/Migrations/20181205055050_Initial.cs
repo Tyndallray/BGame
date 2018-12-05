@@ -39,11 +39,37 @@ namespace BGame.Migrations
                     date = table.Column<DateTime>(nullable: false),
                     Line2 = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: false),
-                    isCompleted = table.Column<bool>(nullable: false)
+                    isCompleted = table.Column<bool>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    commentID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GameID = table.Column<int>(nullable: false),
+                    commenterName = table.Column<string>(nullable: true),
+                    commenterProfile = table.Column<string>(nullable: true),
+                    commentContent = table.Column<string>(nullable: true),
+                    date = table.Column<DateTime>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    GameItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.commentID);
+                    table.ForeignKey(
+                        name: "FK_Comments_GameItems_GameItemId",
+                        column: x => x.GameItemId,
+                        principalTable: "GameItems",
+                        principalColumn: "GameItemId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +81,7 @@ namespace BGame.Migrations
                     GameItemId = table.Column<int>(nullable: true),
                     date = table.Column<DateTime>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    OrderID = table.Column<int>(nullable: true)
+                    OrderID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,8 +97,13 @@ namespace BGame.Migrations
                         column: x => x.OrderID,
                         principalTable: "Orders",
                         principalColumn: "OrderID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_GameItemId",
+                table: "Comments",
+                column: "GameItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_GameItemId",
@@ -87,6 +118,9 @@ namespace BGame.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Comments");
+
             migrationBuilder.DropTable(
                 name: "OrderItem");
 

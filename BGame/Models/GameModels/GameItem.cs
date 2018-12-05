@@ -19,5 +19,6 @@ namespace BGame.Models
         public int Age { get; set; }
         public int Quantity { get; set; }
         public string Image { get; set; }
+        public ICollection<Comment> Comments { set; get; }
     }
 }
