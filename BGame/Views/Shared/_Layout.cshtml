@@ -2,34 +2,32 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    @*<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">*@
     <link rel="stylesheet" href="~/css/Style.css" />
-    <script type="text/javascript">
-        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
-        (function (d, m) {
-            var kommunicateSettings = { "appId": "1a92adc83df06d16574f21fd5c2f090cf", "conversationTitle": "Пальчевский Александр" };
-            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-            s.src = "https://api.kommunicate.io/kommunicate.app";
-            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-            window.kommunicate = m; m._globals = kommunicateSettings;
-        })(document, window.kommunicate || {});
-    </script>
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
     <title>Home Page</title>
 </head>
 <body>
     <div class="header">
-        <h1>BGame</h1>
+        <img src="~/images/logoTeam.png" width="150" height="150">
     </div>
     <div class="navigation">
-        <table>
-            <tr>
-                <td class="navbutton"><a asp-controller="Home" asp-action="Index">Index</a></td>
-                <td class="navbutton"><a asp-controller="Home" asp-action="BuyPage">Store</a></td>
-                <td class="navbutton"><a asp-controller="Home" asp-action="SellPage">Sell</a></td>
-                <td class="navbutton"><a asp-controller="Home" asp-action="Login">Sign In</a></td>
-                <td class="navbutton"><a asp-controller="Home" asp-action="Register">Sign Up</a></td>
-                <td class="navbutton"><a asp-controller="Game" asp-action="GameItemList">GameItems</a></td>
+        <table style="float:left">
+            <tr style="float:left">
+                <td><a asp-controller="Home" asp-action="Index"><img src="~/images/logoTeam.png" width="50"></a></td>
+                <td><a asp-controller="Game" asp-action="GameItemList">Store</a></td>
+                <td><a asp-controller="Home" asp-action="SellPage">Sell</a></td>
+                <td><a asp-controller="Home" asp-action="ChatPage">Chat with our consultant!</a></td>
 
+                @*<td><a asp-controller="Admin" asp-action="Index">Admin</a></td>*@
+            </tr>
+        </table>
+        <table style="float:right">
+            <tr style="float:right">
+                <td><a asp-controller="Home" asp-action="Login">Your Account</a></td>
+                @*<td><a asp-controller="Home" asp-action="Register">Sign Up</a></td>*@
+                <td><a asp-controller="Cart" asp-action="Index"><img src="~/images/Shopping Cart.png" width="50"  /> Cart</a></td>
+                <td><a asp-controller="Order" asp-action="List">Orders</a></td>
             </tr>
         </table>
     </div>

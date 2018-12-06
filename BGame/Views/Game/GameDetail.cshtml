@@ -3,9 +3,8 @@
     ViewData["Title"] = "GameDetail";
 }
 
-<div class="container">
     <div class="banner">
-        <img src="~/images/@Model.Image"/>
+        <img src="@Url.Content(@Model.Image)"/>
     </div>
     <div class="content">
         <h2>@Model.Name</h2>
@@ -15,7 +14,10 @@
         @*<p>@Model.GameTime</p>*@
         <p>@Model.Players</p>
         <p>@Model.Quantity</p>
-        <input type="button" value="Add to Cart" />
+        @*<input type="button" value="Add to Cart" />*@
+        <form asp-controller="Cart" asp-action="AddToCart" asp-route-pID="@Model.GameItemId" method="post">
+            <input type="submit" value="Add to Cart" 
+                   class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
+        </form>
 
     </div>
-</div>

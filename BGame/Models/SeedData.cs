@@ -18,21 +18,27 @@ namespace BGame.Models
                 context.GameItems.AddRange(
                 new GameItem
                 {
-                    Name = "Runescape",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    Price = 89.99f
+                    Name = "Catan",
+                    Image="~/images/Catan.jpg",
+                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+                    Price = 50.00f,
+                    Players= 6,
                 },
                 new GameItem
                 {
-                    Name = "Runescape1",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    Price = 89.99f
+                    Name = "Dixit",
+                    Image = "~/images/Dixit.jpg",
+                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ",
+                    Price = 35.99f,
+                    Players=6,
                 },
                 new GameItem
                 {
-                    Name = "Runescape2",
-                    Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    Price = 89.99f
+                    Name = "Expedition",
+                    Image="~/images/Expedition.jpg",
+                    Description = " and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    Price = 120.50f,
+                    Players = 10,
                 });
             }
             context.SaveChanges();

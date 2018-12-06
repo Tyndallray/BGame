@@ -8,5 +8,7 @@ namespace BGame.Models
     public interface IGameItem
     {
         IQueryable<GameItem> GameItems { get; }
+        GameItem DeleteItem(int id) ;
+        void SaveGameItem(GameItem item);
     }
 }

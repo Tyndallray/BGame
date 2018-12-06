@@ -14,8 +14,6 @@ namespace BGame.Models.UserModels
             context = ctx;
         }
 
-
-
         public void Add(User obj)
         {
             context.Users.Add(obj);

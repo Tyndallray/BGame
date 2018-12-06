@@ -1,0 +1,26 @@
+﻿
+@model BGame.Models.UserModels.User
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/Style.css" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+</head>
+<body>
+    <div>
+        <center>
+            <a asp-controller="Home" asp-action="Index"><img src="~/images/logoTeam.png" width="80"></a>
+        </center>
+    </div>
+
+    @RenderBody()
+
+    <center>
+        <button onclick="location.href='@Url.Action("Index","Admin")'" style="background-color: cornflowerblue;margin:10px;">Log in as Admin</button>
+    </center>
+    <div class="footer">
+        <p>&copy; 2018 - BGame </p>
+    </div>
+</body>
+
+</html>

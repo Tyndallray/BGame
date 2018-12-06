@@ -21,6 +21,11 @@ namespace BGame.Controllers
             return View();
         }
 
+        public IActionResult ChatPage()
+        {
+            return View();
+        }
+
         public IActionResult BuyPage()
         {
             return View();
@@ -40,7 +45,7 @@ namespace BGame.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register( User user)
+        public IActionResult RegisterAndLogin( User user)
         {
             UserRepository.Add(user);
             return View("Index");
