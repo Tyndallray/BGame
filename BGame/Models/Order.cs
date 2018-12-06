@@ -22,5 +22,6 @@ namespace BGame.Models
         [Required(ErrorMessage = "Please enter a city name")]
         public string City { get; set; }
         public bool isCompleted { get; set; }
+        //public int UserID { set; get; }
     }
 }

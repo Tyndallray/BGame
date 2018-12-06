@@ -10,6 +10,7 @@ using BGame.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using BGame.Models.UserModels;
+using Microsoft.AspNetCore.Identity;
 namespace BGame
 {
     public class Startup
@@ -23,12 +24,20 @@ namespace BGame
         {
             services.AddDbContext<BGameDbContext>(options => options.UseSqlServer(
                 Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddMvc();
+            
             services.AddTransient<IGameItem, EFGameItemRepository>();
-            services.AddTransient<IUserInterface, EFUserRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
-          
             services.AddTransient<IOrderRepository, EFOrderRepository>();
+            //user part
+           // services.AddTransient<IUserInterface, EFUserRepository>();
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseSqlServer(
+            Configuration["BGameIdentity:ConnectionString"]));
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultTokenProviders();
+
+            
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
             services.AddMemoryCache();
@@ -44,7 +53,7 @@ namespace BGame
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-
+            app.UseAuthentication();
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
@@ -55,6 +64,7 @@ namespace BGame
                    defaults: new { controller = "Cart", action = "Index" });
             });
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

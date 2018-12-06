@@ -1,0 +1,11 @@
+﻿
+
+@model Comment
+<div>
+    <form asp-controller="Game" asp-action="Comment" method="post" style="position: relative;margin: 3px;float: right;width: 830px;">
+        <input type="hidden" asp-for="GameID" />
+        <label asp-for="commentContent" style="float:left;font-size:25px; margin-right:10px;">Comment:</label>
+        <textarea asp-for="commentContent" style="width: 550px;float: left;height: 60px;"></textarea>
+        <input type="submit" value="Comment" style="float: right;margin: 8px;width: 100px;height: 30px;background: cornflowerblue;border-radius: 10px;" />
+    </form>
+</div>

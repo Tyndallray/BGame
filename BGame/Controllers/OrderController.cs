@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BGame.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Controllers
 {
@@ -17,8 +17,9 @@ namespace BGame.Controllers
             repository = repoService;
             cart = cartService;
         }
+        [Authorize]
         public ViewResult Checkout() => View(new Order());[HttpPost]
-
+        [Authorize]
         public IActionResult Checkout(Order order)
         {
             if (cart.Orders.Count() == 0)
@@ -42,7 +43,7 @@ namespace BGame.Controllers
         {
             cart.Clear(); return View();
         }
-
+        [Authorize]
         public ViewResult List() => View(repository.Orders.Where(tOrder => !tOrder.isCompleted));
 
         [HttpPost]

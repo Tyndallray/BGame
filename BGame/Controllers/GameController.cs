@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BGame.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Controllers
 {
@@ -21,14 +21,33 @@ namespace BGame.Controllers
 
         }
 
-        public ViewResult GameDetail(int Id)
+        public IActionResult GameDetail(int Id)
         {
-            return View(GameRepository.GameItems.Where(x => x.GameItemId == Id).FirstOrDefault());
+            
+            GameItem tItem = GameRepository.GameItems.FirstOrDefault(x => x.GameItemId == Id);
+            if (tItem.Comments == null)
+            {
+                tItem.Comments = new List<Comment>(); 
+
+            }
+            tItem.Comments.ToList().AddRange(GameRepository.GetComments(Id));
+            return View(tItem);
         }
 
         public ViewResult GameItemList()
         {
             return View(GameRepository.GameItems);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Comment(Comment pCom)
+        {
+            pCom.date = DateTime.Now;
+           // pCom.UserID = User.Identity.AuthenticationType;
+            GameRepository.AddComment(pCom);
+            GameItem tItem = GameRepository.GameItems.FirstOrDefault(x => x.GameItemId == pCom.GameID);
+            return RedirectToAction("GameDetail", new { Id=pCom.GameID});
         }
 
 

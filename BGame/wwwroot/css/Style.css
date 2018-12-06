@@ -97,8 +97,7 @@ input[type=submit]{
 .slideshow-container {
     max-width: 720px;
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
+    margin:auto;
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -168,7 +167,5 @@ input[type=submit]{
     margin: 10px;
     position: relative;
 }
-.content img{
 
-}
 

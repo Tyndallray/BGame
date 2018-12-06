@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BGame.Models.UserModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserInterface UserRepository;
+      //  private IUserInterface UserRepository;
 
-        public HomeController(IUserInterface x)
+        public HomeController()
         {
-            UserRepository = x;
+          //  UserRepository = x;
         }
 
         public IActionResult Index()
@@ -30,26 +31,29 @@ namespace BGame.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult SellPage()
         {
             return View();
         }
-        public IActionResult Register()
-        {
 
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult RegisterAndLogin( User user)
-        {
-            UserRepository.Add(user);
-            return View("Index");
-        }
+        // !! move to account controller !!
+
+        //public IActionResult Register()
+        //{
+
+        //    return View();
+        //}
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult RegisterAndLogin( User user)
+        //{
+        //    UserRepository.Add(user);
+        //    return View("Index");
+        //}
 
     }
 }

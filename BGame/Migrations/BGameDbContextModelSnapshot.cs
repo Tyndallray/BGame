@@ -19,6 +19,33 @@ namespace BGame.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BGame.Models.Comment", b =>
+                {
+                    b.Property<int>("commentID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GameID");
+
+                    b.Property<int?>("GameItemId");
+
+                    b.Property<int>("UserID");
+
+                    b.Property<string>("commentContent");
+
+                    b.Property<string>("commenterName");
+
+                    b.Property<string>("commenterProfile");
+
+                    b.Property<DateTime>("date");
+
+                    b.HasKey("commentID");
+
+                    b.HasIndex("GameItemId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("BGame.Models.GameItem", b =>
                 {
                     b.Property<int>("GameItemId")
@@ -80,7 +107,7 @@ namespace BGame.Migrations
 
                     b.Property<int?>("GameItemId");
 
-                    b.Property<int?>("OrderID");
+                    b.Property<int>("OrderID");
 
                     b.Property<int>("Quantity");
 
@@ -95,23 +122,11 @@ namespace BGame.Migrations
                     b.ToTable("OrderItem");
                 });
 
-            modelBuilder.Entity("BGame.Models.UserModels.User", b =>
+            modelBuilder.Entity("BGame.Models.Comment", b =>
                 {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("ProfileDescription");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("Users");
+                    b.HasOne("BGame.Models.GameItem")
+                        .WithMany("Comments")
+                        .HasForeignKey("GameItemId");
                 });
 
             modelBuilder.Entity("BGame.Models.OrderItem", b =>
@@ -122,7 +137,8 @@ namespace BGame.Migrations
 
                     b.HasOne("BGame.Models.Order")
                         .WithMany("OrderItemList")
-                        .HasForeignKey("OrderID");
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

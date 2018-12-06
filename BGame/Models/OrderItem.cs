@@ -14,5 +14,6 @@ namespace BGame.Models
         public GameItem GameItem {  set; get; }
         public DateTime date { set; get; }
         public int Quantity {  set; get; }
+        public int OrderID { set; get; }
     }
 }

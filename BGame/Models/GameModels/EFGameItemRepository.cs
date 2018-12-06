@@ -11,12 +11,13 @@ namespace BGame.Models
     public class EFGameItemRepository : IGameItem
     {
         private BGameDbContext context;
+        public IQueryable<GameItem> GameItems => context.GameItems;
+        public IQueryable<Comment> Comments => context.Comments;
         public EFGameItemRepository(BGameDbContext context)
         {
             this.context = context;
         }
-
-        public IQueryable<GameItem> GameItems => context.GameItems;
+       
 
         //currently for delete gameItem in crud (not recommend cause the record) 
         public GameItem DeleteItem(int pID)
@@ -28,7 +29,6 @@ namespace BGame.Models
                 context.SaveChanges();
             }
             return tItem;
-
         }
 
         // used for edit existing gameItem in crud 
@@ -55,5 +55,29 @@ namespace BGame.Models
             }
             context.SaveChanges();
         }
+        public void AddComment(Comment pCom)
+        {
+            //if i bought item before then  comment
+            GameItem tItem = GameItems.FirstOrDefault(p => p.GameItemId == pCom.GameID);
+            if (tItem != null && pCom != null)
+            {
+                if (tItem.Comments == null)
+                {
+                    tItem.Comments = new List<Comment>();
+                }
+
+                tItem.Comments.Add(pCom);
+                context.Comments.Add(pCom);
+                context.SaveChanges();
+            }
+        }
+
+        public List<Comment> GetComments(int pGameID)
+        {
+            List<Comment> coms = new List<Comment>();
+            coms.AddRange(Comments.Where(p => p.GameID == pGameID));
+            return coms;
+        }
+
     }
 }
