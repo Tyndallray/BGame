@@ -39,8 +39,7 @@ namespace BGame.Migrations
                     date = table.Column<DateTime>(nullable: false),
                     Line2 = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: false),
-                    isCompleted = table.Column<bool>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
+                    isCompleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

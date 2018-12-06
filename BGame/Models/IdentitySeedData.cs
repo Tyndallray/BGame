@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-
+using BGame.Models.UserModels;
 namespace BGame.Models
 {
     public class IdentitySeedData
@@ -14,19 +14,56 @@ namespace BGame.Models
         private const string adminPassword = "Secret123$";
         public static async void EnsurePopulated(IApplicationBuilder app)
         {
-            UserManager<IdentityUser> userManager = app.ApplicationServices
-            .GetRequiredService<UserManager<IdentityUser>>();
-            IdentityUser user = await userManager.FindByIdAsync(adminUser);
-            if (user == null)
+            RoleManager<IdentityRole> RoleManager = app.ApplicationServices.GetRequiredService<RoleManager<IdentityRole>>();
+            UserManager<User> userManager = app.ApplicationServices.GetRequiredService<UserManager<User>>();
+            // creating the roles 
+            string[] roleNames = { "Adm", "Gen"};
+            IdentityResult roleResult;
+            foreach (var role in roleNames)
             {
-                user = new IdentityUser(adminUser);
-                await userManager.CreateAsync(user, adminPassword);
+                var roleExist = await RoleManager.RoleExistsAsync(role);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(role));
+                }
             }
-            IdentityUser general = await userManager.FindByIdAsync("General");
+            
+
+            User admin = await userManager.FindByIdAsync(adminUser);
+            if (admin == null)
+            {
+                admin = new User() {
+                    UserName = adminUser,
+                    Name = adminUser,
+                    Password = adminPassword,
+                    Email = "abcdef@email.com",
+                    UserID = 1,
+                    ProfileLink = "http://www.thaboschool.ac.th/ac_db/admin/images/adminlogin.jpg",
+                };
+                var result = await userManager.CreateAsync(admin);
+                if (result.Succeeded)
+                {
+                    await userManager.AddPasswordAsync(admin,adminPassword);
+                    await userManager.AddToRoleAsync(admin,roleNames[0]);
+                }
+            }
+            User general = await userManager.FindByIdAsync("General");
             if (general == null)
             {
-                general = new IdentityUser("Admin");
-                await userManager.CreateAsync(general, "General123$");
+                general = new User() {
+                    UserID = 2,
+                    UserName = "General",
+                    Email = "123456@email.com",
+                    Name = "General",
+                    Password = "General123$",
+                    ProfileLink = "http://bpic.588ku.com/element_pic/00/98/95/9156f3586f7c8c6.jpg",
+                };
+                var result =await userManager.CreateAsync(general);
+                if (result.Succeeded)
+                {
+                    await userManager.AddPasswordAsync(general, "General123$");
+                    await userManager.AddToRoleAsync(general, roleNames[1]);
+                }
             }
         }
     }

@@ -33,7 +33,7 @@ namespace BGame
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlServer(
             Configuration["BGameIdentity:ConnectionString"]));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<AppIdentityDbContext>()
             .AddDefaultTokenProviders();
 

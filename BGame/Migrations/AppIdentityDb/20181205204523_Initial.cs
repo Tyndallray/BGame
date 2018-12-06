@@ -40,7 +40,13 @@ namespace BGame.Migrations.AppIdentityDb
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    password = table.Column<string>(nullable: true),
+                    ProfileDescription = table.Column<string>(nullable: true),
+                    ProfileLink = table.Column<string>(nullable: true),
+                    ReturnUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,6 +159,111 @@ namespace BGame.Migrations.AppIdentityDb
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GameItem",
+                columns: table => new
+                {
+                    Name = table.Column<string>(nullable: true),
+                    GameItemId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<float>(nullable: false),
+                    Players = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameItem", x => x.GameItemId);
+                    table.ForeignKey(
+                        name: "FK_GameItem_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Line1 = table.Column<string>(nullable: false),
+                    date = table.Column<DateTime>(nullable: false),
+                    Line2 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
+                    isCompleted = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.ForeignKey(
+                        name: "FK_Order_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    commentID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GameID = table.Column<int>(nullable: false),
+                    commenterName = table.Column<string>(nullable: true),
+                    commenterProfile = table.Column<string>(nullable: true),
+                    commentContent = table.Column<string>(nullable: true),
+                    date = table.Column<DateTime>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    GameItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.commentID);
+                    table.ForeignKey(
+                        name: "FK_Comment_GameItem_GameItemId",
+                        column: x => x.GameItemId,
+                        principalTable: "GameItem",
+                        principalColumn: "GameItemId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    OrderItemID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GameItemId = table.Column<int>(nullable: true),
+                    date = table.Column<DateTime>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    OrderID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.OrderItemID);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_GameItem_GameItemId",
+                        column: x => x.GameItemId,
+                        principalTable: "GameItem",
+                        principalColumn: "GameItemId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Order_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Order",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +302,31 @@ namespace BGame.Migrations.AppIdentityDb
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_GameItemId",
+                table: "Comment",
+                column: "GameItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameItem_UserId1",
+                table: "GameItem",
+                column: "UserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_UserId",
+                table: "Order",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_GameItemId",
+                table: "OrderItem",
+                column: "GameItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_OrderID",
+                table: "OrderItem",
+                column: "OrderID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,7 +347,19 @@ namespace BGame.Migrations.AppIdentityDb
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "OrderItem");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "GameItem");
+
+            migrationBuilder.DropTable(
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

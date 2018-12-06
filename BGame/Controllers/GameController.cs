@@ -21,11 +21,16 @@ namespace BGame.Controllers
 
         }
 
-        public ViewResult GameDetail(int Id)
+        public IActionResult GameDetail(int Id)
         {
             
-            GameItem tItem = GameRepository.GameItems.Where(x => x.GameItemId == Id).FirstOrDefault();
-            tItem.Comments = GameRepository.GetComments(Id);
+            GameItem tItem = GameRepository.GameItems.FirstOrDefault(x => x.GameItemId == Id);
+            if (tItem.Comments == null)
+            {
+                tItem.Comments = new List<Comment>(); 
+
+            }
+            tItem.Comments.ToList().AddRange(GameRepository.GetComments(Id));
             return View(tItem);
         }
 
@@ -41,8 +46,8 @@ namespace BGame.Controllers
             pCom.date = DateTime.Now;
            // pCom.UserID = User.Identity.AuthenticationType;
             GameRepository.AddComment(pCom);
-            GameItem tItem = GameRepository.GameItems.Where(x => x.GameItemId == pCom.GameID).FirstOrDefault();
-            return RedirectToAction("GameDetail",tItem.GameItemId);
+            GameItem tItem = GameRepository.GameItems.FirstOrDefault(x => x.GameItemId == pCom.GameID);
+            return RedirectToAction("GameDetail", new { Id=pCom.GameID});
         }
 
 

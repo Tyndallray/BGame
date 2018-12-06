@@ -72,8 +72,12 @@ namespace BGame.Models
             }
         }
 
-        public List<Comment> GetComments(int pGameID)=>
-          Comments.Where(p => p.GameID == pGameID)?.ToList();
-        
+        public List<Comment> GetComments(int pGameID)
+        {
+            List<Comment> coms = new List<Comment>();
+            coms.AddRange(Comments.Where(p => p.GameID == pGameID));
+            return coms;
+        }
+
     }
 }

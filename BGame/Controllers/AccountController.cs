@@ -8,11 +8,11 @@ namespace BGame.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
         
-        public AccountController(UserManager<IdentityUser> userMgr,
-        SignInManager<IdentityUser> signInMgr)
+        public AccountController(UserManager<User> userMgr,
+        SignInManager<User> signInMgr)
         {
             userManager = userMgr;
             signInManager = signInMgr;
@@ -32,21 +32,20 @@ namespace BGame.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user =
-                await userManager.FindByNameAsync(loginUser.UserName);
+                User user = await userManager.FindByNameAsync(loginUser.UserName);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
                     if ((await signInManager.PasswordSignInAsync(user,
                     loginUser.Password, false, false)).Succeeded)
                     {
-                        return Redirect(loginUser?.ReturnUrl ?? "/Admin/Index");
+                        return RedirectToAction("Index","Home");
                     }
                 }
             }
 
             ModelState.AddModelError("", "Invalid name or password");
-            return View(loginUser);
+            return View();
         }
         public async Task<RedirectResult> Logout(string returnUrl = "/")
         {
@@ -69,11 +68,11 @@ namespace BGame.Controllers
             registerUser.ReturnUrl = registerUser.ReturnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = registerUser.UserName, Email = registerUser.Email };
+                var user = new User { UserName = registerUser.UserName, Email = registerUser.Email };
                 var result = await userManager.CreateAsync(user, registerUser.Password);
                 if (result.Succeeded)
                 {
-
+                    await userManager.AddToRoleAsync(user,"Gen");
                     //this part is mainly for preparing email varifying callback 
                     //_logger.LogInformation("User created a new account with password.");
                     //var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -99,9 +98,10 @@ namespace BGame.Controllers
             return View("Register");
         }
 
-        //public async User getCurUser(int pID) {
-        //  IdentityUser tUser =  await  userManager.FindByIdAsync(pID.ToString());
-        //    return 
+        //public async Task<> User getCurUser(int pID)
+        //{
+        //    IdentityUser tUser = await userManager.FindByIdAsync(pID.ToString());
+        //    return
         //}
     }
 }

@@ -90,8 +90,6 @@ namespace BGame.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("UserID");
-
                     b.Property<DateTime>("date");
 
                     b.Property<bool>("isCompleted");

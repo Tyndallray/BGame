@@ -15,9 +15,13 @@
 
     @RenderBody()
 
-    <center>
-        <button onclick="location.href='@Url.Action("Index","Admin")'" style="background-color: cornflowerblue;margin:10px;">Log in as Admin</button>
-    </center>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Adm"))
+    {
+        <center>
+            <button onclick="location.href='@Url.Action("Index","Admin")'" style="background-color: cornflowerblue;margin:10px;">Log in as Admin</button>
+        </center>
+    }
+
     <div class="footer">
         <p>&copy; 2018 - BGame </p>
     </div>
