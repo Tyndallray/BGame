@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "UserDetails";
+
+}
+<div class="borderStyle">
+    <div>
+        <img src="~/images/Profile.png" class="userProfile" />
+    </div>
+    <div>
+        <p style="  font-weight: bold;font-size: 200%;"> @User.Identity.Name </p>
+        <textarea class="textArea" type="text" name="requirments" placeholder="Gamer didnt write anything*" ;></textarea>
+    </div>
+
+</div>
+<div class="record_border">
+  
+    <center>
+        <div class="col-2">
+            <a class="btn btn-sm btn-primary"
+               asp-action="Logout" asp-controller="Account">Log Out</a>
+        </div>
+    </center>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Adm"))
+    {
+        <center>
+            <button onclick="location.href='@Url.Action("Index","Admin")'" style="background-color: cornflowerblue;margin:10px;">Log in as Admin</button>
+        </center>
+    }
+
+</div>
+
+
+
+

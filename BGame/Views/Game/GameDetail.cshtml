@@ -4,16 +4,16 @@
 }
 
 <div class="banner">
-    <img src="@Url.Content(@Model.Image)" />
+    <img src="@Url.Content(@Model.Image)" style="width:500px" />
 </div>
 <div class="content">
     <h2>@Model.Name</h2>
-    <p>@Model.Price</p>
-    <p>@Model.Description</p>
-    <p>@Model.Age</p>
+    <p>Price: @Model.Price.ToString("C")</p>
+    <p>Description: @Model.Description</p>
+    <p>Ages: Age @Model.Age and over</p>
     @*<p>@Model.GameTime</p>*@
-    <p>@Model.Players</p>
-    <p>@Model.Quantity</p>
+    <p>Support: 0 ~ @Model.Players Players</p>
+    @*<p>@Model.Quantity</p>*@
     <form asp-controller="Cart" asp-action="AddToCart" asp-route-pID="@Model.GameItemId" method="post">
         <input type="submit" value="Add to Cart"
                class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
@@ -22,9 +22,13 @@
     {
         @Html.Partial("_PartialAddCommentView", new Comment() { GameID = Model.GameItemId });
     }
-    @foreach (Comment com in Model.Comments)
-    {
-        @Html.Partial("_PartialComment", com);
-    }
+    <br />
+    <br />
+    <div>
 
+        @foreach (Comment com in Model.Comments)
+        {
+            @Html.Partial("_PartialComment", com);
+        }
+    </div>
 </div>

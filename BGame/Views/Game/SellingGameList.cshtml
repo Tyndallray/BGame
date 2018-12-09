@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<GameItem>
-@{ViewBag.Title = "Selling Game Items"; Layout = "_Layout.cshtml";}
+@{ViewBag.Title = "Selling Game Items"; }
 
 @if (Model.Count() != 0)
 {
@@ -13,6 +13,11 @@
         <p><b>Players: </b>@obj.Players</p>
         <p>@obj.Description</p>
     }
+}
+else
+{
+    <center><h2>Start Selling Now!</h2></center>
+    <br />
 }
 <div class="text-center">
     <a asp-action="Create" asp-controller="Game" class="btn btn-primary">Add Game Item</a>

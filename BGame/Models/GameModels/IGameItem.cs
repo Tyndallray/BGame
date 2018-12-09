@@ -13,5 +13,6 @@ namespace BGame.Models
         void SaveGameItem(GameItem item);
         void AddComment(Comment com);
         List<Comment> GetComments(int Id);
+        IQueryable<GameItem> GetSellingGame(int pId);
     }
 }

@@ -10,12 +10,13 @@ namespace BGame.Controllers
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
-        
+        private IUser UserRep;
         public AccountController(UserManager<User> userMgr,
-        SignInManager<User> signInMgr)
+        SignInManager<User> signInMgr, IUser userRep)
         {
             userManager = userMgr;
             signInManager = signInMgr;
+            UserRep = userRep;
         }
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
@@ -68,7 +69,7 @@ namespace BGame.Controllers
             registerUser.ReturnUrl = registerUser.ReturnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = registerUser.UserName, Email = registerUser.Email };
+                var user = new User { UserName = registerUser.UserName, Email = registerUser.Email, UserID = UserRep.GetUsers()+1 };
                 var result = await userManager.CreateAsync(user, registerUser.Password);
                 if (result.Succeeded)
                 {
@@ -97,11 +98,10 @@ namespace BGame.Controllers
             ModelState.AddModelError("", "Invalid input");
             return View("Register");
         }
-
-        //public async Task<> User getCurUser(int pID)
+        //[HttpGet]
+        //public async Task<User> GetCurUser(string pName)
         //{
-        //    IdentityUser tUser = await userManager.FindByIdAsync(pID.ToString());
-        //    return
+        //  return await userManager.FindByNameAsync(pName);
         //}
     }
 }

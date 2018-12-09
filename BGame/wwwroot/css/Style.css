@@ -167,5 +167,43 @@ input[type=submit]{
     margin: 10px;
     position: relative;
 }
+.borderStyle {
+    border: solid;
+    border-color: #302d75;
+    border-radius: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow: auto;
+}
+.record_border {
+    border-style: none solid solid solid;
+    margin-left: 40px;
+    width: 1000px;
+    height: 350px;
+    border-color: #fea101;
+    border-radius: 0 0 10px 10px;
+    font-family: Arial,Helvetica,Verdana,sans-serif;
+}
 
+.textArea {
+    background-color: rgba(24,25,25,1);
+    border: 0px solid rgba(24,25,25,1);
+    color: #ffffff;
+    margin: 20px;
+    width: 500px;
+    border-radius: 6px;
+    padding: 10px;
+    height: 80px;
+    font: normal normal normal 16px/1.3em 'Open Sans',sans-serif;
+    display: block;
+    float: left;
+}
+.userProfile {
+    margin: 20px;
+    width: 200px;
+    border-radius: 10px;
+    display: block;
+    float: left;
+    border: solid;
+}
 
