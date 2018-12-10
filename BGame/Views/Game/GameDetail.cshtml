@@ -14,12 +14,13 @@
     @*<p>@Model.GameTime</p>*@
     <p>@Model.Players</p>
     <p>@Model.Quantity</p>
-    <form asp-controller="Cart" asp-action="AddToCart" asp-route-pID="@Model.GameItemId" method="post">
-        <input type="submit" value="Add to Cart"
-               class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
-    </form>
+
     @if (User.Identity.IsAuthenticated)
     {
+        <form asp-controller="Cart" asp-action="AddToCart" asp-route-pID="@Model.GameItemId" method="post">
+            <input type="submit" value="Add to Cart"
+                   class="w3-button w3-border w3-hover-black w3-round-xlarge w3-border-black">
+        </form>
         @Html.Partial("_PartialAddCommentView", new Comment() { GameID = Model.GameItemId });
     }
     @foreach (Comment com in Model.Comments)

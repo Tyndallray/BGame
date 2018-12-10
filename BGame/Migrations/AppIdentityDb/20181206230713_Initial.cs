@@ -43,7 +43,7 @@ namespace BGame.Migrations.AppIdentityDb
                     AccessFailedCount = table.Column<int>(nullable: false),
                     UserID = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    password = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
                     ProfileDescription = table.Column<string>(nullable: true),
                     ProfileLink = table.Column<string>(nullable: true),
                     ReturnUrl = table.Column<string>(nullable: true)

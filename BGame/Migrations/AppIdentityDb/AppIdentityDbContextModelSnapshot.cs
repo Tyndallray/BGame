@@ -157,6 +157,8 @@ namespace BGame.Migrations.AppIdentityDb
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Password");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -177,8 +179,6 @@ namespace BGame.Migrations.AppIdentityDb
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("password");
 
                     b.HasKey("Id");
 

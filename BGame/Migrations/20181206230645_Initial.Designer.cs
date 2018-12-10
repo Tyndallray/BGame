@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BGame.Migrations
 {
     [DbContext(typeof(BGameDbContext))]
-    [Migration("20181205204514_Initial")]
+    [Migration("20181206230645_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

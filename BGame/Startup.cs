@@ -63,7 +63,7 @@ namespace BGame
                 routes.MapRoute(name: null, template: "{ controller = Cart}/{ action = Index}/{ id ?}",
                    defaults: new { controller = "Cart", action = "Index" });
             });
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
             IdentitySeedData.EnsurePopulated(app);
         }
     }

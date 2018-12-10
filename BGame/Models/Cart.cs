@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Models
 {
+    [Authorize]
     public class Cart
     {
         private List<OrderItem> orderCollection = new List<OrderItem>();

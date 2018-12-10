@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BGame.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Controllers
 {
@@ -16,7 +17,7 @@ namespace BGame.Controllers
             repository = repo;
             cart = cartService;
         }
-
+        [Authorize]        
         public ViewResult Index()
         {
             return View(cart);
