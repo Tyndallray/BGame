@@ -2,7 +2,7 @@
 @model Comment
 <div class="comment">
     <img src="@Url.Content(Model.commenterProfile)" />
-    <span>@Model.commenterName </span>
-    <p>@Model.commentContent</p>
-    <span>@Model.date</span>
+    <span style="font-weight:bold">@Model.commenterName :</span><br />
+    <p>@Model.commentContent <span style="float:right;font-size:small">@Model.date</span></p>
+    
 </div>

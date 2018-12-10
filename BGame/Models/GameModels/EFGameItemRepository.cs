@@ -31,6 +31,8 @@ namespace BGame.Models
             return tItem;
         }
 
+        public IQueryable<GameItem> GetSellingGame(int pId) => GameItems.Where(x => x.UserId == pId);
+
         // used for edit existing gameItem in crud 
         public void SaveGameItem(GameItem pItem)
         {

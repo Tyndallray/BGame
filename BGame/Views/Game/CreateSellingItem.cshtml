@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "CreateSellingItem";
+}
+@model GameItem
+
+<form asp-action="CreateSellingItem" asp-controller="Game" method="post">
+    <input type="hidden" asp-for="GameItemId" />
+    <div class="form-group">
+        <label asp-for="Name">Game Name : </label><br />
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Game Image : </label><br />
+        <input asp-for="Image" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Players">Players : </label><br />
+        <input asp-for="Players" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Price : </label><br />
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Age">Best Ages : </label><br />
+        <input asp-for="Age" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity">Quantity : </label><br />
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+ 
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="GameItemList" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+

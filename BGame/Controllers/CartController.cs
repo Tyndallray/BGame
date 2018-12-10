@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BGame.Controllers
-{
+{   [Authorize]
     public class CartController : Controller
     {
         private IGameItem repository;
